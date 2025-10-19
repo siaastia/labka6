@@ -1,0 +1,35 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// функция для разбиения массива (возвращает индекс опоры)
+int partition(vector<int>& arr, int low, int high) {
+    int pivot = arr[high];        // выбираем последний элемент как опору
+    int i = low - 1;              // индекс меньшего элемента
+    for (int j = low; j < high; ++j) { // пробегаем от low до high-1
+        if (arr[j] <= pivot) {    // если текущий элемент <= опоры
+            ++i;                  // увеличиваем индекс меньшего
+            swap(arr[i], arr[j]); // меняем местами arr[i] и arr[j]
+        }
+    }
+    swap(arr[i + 1], arr[high]);  // ставим опору на своё место
+    return i + 1;                 // возвращаем индекс опоры
+}
+
+void quickSort(vector<int>& arr, int low, int high) {
+    if (low < high) {             // если есть что сортировать
+        int pi = partition(arr, low, high); // получаем индекс опоры
+        quickSort(arr, low, pi - 1);       // рекурсивно сортируем левую часть
+        quickSort(arr, pi + 1, high);      // рекурсивно сортируем правую часть
+    }
+}
+
+int main() {
+    vector<int> array = {10, 7, 8, 9, 1, 5}; // тестовый вектор
+    cout << "Исходный массив: ";
+    for (int v : array) cout << v << " "; cout << "\n";
+    quickSort(array, 0, array.size() - 1); // вызываем быструю сортировку
+    cout << "Отсортированный массив: ";
+    for (int v : array) cout << v << " "; cout << "\n";
+    return 0;
+}
