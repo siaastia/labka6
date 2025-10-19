@@ -1,0 +1,30 @@
+public class BubbleSort {
+    // Метод для сортировки массива методом пузырька
+    public static void bubbleSort(int[] arr) {
+        int n = arr.length;               // сохраняем длину массива
+        for (int i = 0; i < n - 1; i++) { // внешний цикл — количество проходов
+            for (int j = 0; j < n - i - 1; j++) { // внутренний цикл — сравнение соседей
+                if (arr[j] > arr[j + 1]) { // если порядок нарушен
+                    int temp = arr[j];    // временная переменная для свопа
+                    arr[j] = arr[j + 1];  // ставим меньший элемент левее
+                    arr[j + 1] = temp;    // ставим больший элемент правее
+                }
+            }
+        }
+    }
+
+    // Вспомогательный метод для печати массива
+    public static void printArray(int[] arr) {
+        for (int v : arr) System.out.print(v + " "); // вывод каждого элемента и пробел
+        System.out.println();                        // перевод строки в конце
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {64, 34, 25, 12, 22, 11, 90}; // тестовый массив
+        System.out.print("Исходный массив: ");
+        printArray(arr);                          // вывод исходного массива
+        bubbleSort(arr);                          // вызываем сортировку
+        System.out.print("Отсортированный массив: ");
+        printArray(arr);                          // выводим результат
+    }
+}
