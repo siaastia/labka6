@@ -1,0 +1,35 @@
+import java.util.Arrays; // импорт для удобного вывода (не обязателен)
+
+public class ShellSort {
+    // Метод сортировки Шелла
+    public static void shellSort(int[] arr) {
+        int n = arr.length;               // длина массива
+        for (int gap = n / 2; gap > 0; gap /= 2) { // начинаем с половины длины и делим gap на 2
+            for (int i = gap; i < n; i++) { // проходим по элементам, начиная с gap
+                int temp = arr[i];         // сохраняем текущий элемент
+                int j = i;
+                // выполняем вставку с шагом gap
+                while (j >= gap && arr[j - gap] > temp) { // если элемент раньше больше temp
+                    arr[j] = arr[j - gap]; // сдвигаем элемент вправо на gap
+                    j -= gap;              // передвигаемся на gap влево
+                }
+                arr[j] = temp;             // вставляем temp на найденное место
+            }
+        }
+    }
+
+    // Вспомогательная печать
+    public static void printArray(int[] arr) {
+        for (int v : arr) System.out.print(v + " ");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 34, 54, 2, 3}; // тестовый массив
+        System.out.print("Исходный массив: ");
+        printArray(arr);                // печать до сортировки
+        shellSort(arr);                 // сортируем
+        System.out.print("Отсортированный массив: ");
+        printArray(arr);                // печать результата
+    }
+}
