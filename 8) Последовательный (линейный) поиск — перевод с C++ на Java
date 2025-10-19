@@ -1,0 +1,22 @@
+public class LinearSearch {
+    // Функция для линейного поиска — возвращает индекс найденного элемента или -1
+    public static int linearSearch(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) { // проходим по всем элементам
+            if (arr[i] == target) {            // если нашли совпадение
+                return i;                      // возвращаем индекс
+            }
+        }
+        return -1;                             // если не нашли — возвращаем -1
+    }
+
+    public static void main(String[] args) {
+        int[] array = {3, 5, 2, 7, 9, 1, 4}; // тестовый массив
+        int target = 7;                      // искомое значение
+        int result = linearSearch(array, target); // вызываем функцию
+        if (result != -1) {
+            System.out.println("Элемент найден на позиции: " + result); // вывод индекса
+        } else {
+            System.out.println("Элемент не найден"); // сообщение об отсутствии
+        }
+    }
+}
