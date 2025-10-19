@@ -1,0 +1,32 @@
+#include <iostream>               // ввод/вывод
+#include <vector>                 // вектор
+using namespace std;
+
+void insertionSort(vector<int>& array) { // сортировка вставками, принимаем по ссылке
+    int n = array.size();                // размер массива
+    for (int i = 1; i < n; ++i) {        // начинаем со второго элемента (индекс 1)
+        int key = array[i];              // сохраняем текущий элемент, который будем вставлять
+        int j = i - 1;                   // индекс предыдущего элемента
+        // передвинуть элементы, большие key, на одну позицию вправо
+        while (j >= 0 && array[j] > key) { // пока есть элементы и текущий больше key
+            array[j + 1] = array[j];    // сдвигаем элемент вправо
+            j = j - 1;                  // движемся дальше влево
+        }
+        array[j + 1] = key;             // вставляем key на правильную позицию
+    }
+}
+
+void printArray(const vector<int>& arr) {
+    for (int v : arr) cout << v << " "; // вывод элементов
+    cout << endl;                        // перевод строки
+}
+
+int main() {
+    vector<int> array = {12, 11, 13, 5, 6}; // тестовый вектор
+    cout << "Исходный массив: ";
+    printArray(array);                      // выводим исходный
+    insertionSort(array);                   // сортируем
+    cout << "Отсортированный массив: ";
+    printArray(array);                      // выводим результат
+    return 0;
+}
