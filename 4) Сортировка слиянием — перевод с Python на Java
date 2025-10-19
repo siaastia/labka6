@@ -1,0 +1,47 @@
+public class MergeSort {
+    // Метод для слияния двух отсортированных половин в один массив
+    private static int[] merge(int[] left, int[] right) {
+        int i = 0, j = 0, k = 0;                 // индексы для left, right и результата
+        int[] result = new int[left.length + right.length]; // результирующий массив
+        while (i < left.length && j < right.length) { // пока есть элементы в обоих массивах
+            if (left[i] < right[j]) {            // если элемент слева меньше
+                result[k++] = left[i++];         // заносим его в результат и сдвигаем индексы
+            } else {
+                result[k++] = right[j++];        // иначе берём элемент справа
+            }
+        }
+        // дописываем оставшиеся элементы (если есть) из left
+        while (i < left.length) result[k++] = left[i++];
+        // дописываем оставшиеся элементы (если есть) из right
+        while (j < right.length) result[k++] = right[j++];
+        return result;                           // возвращаем слитый массив
+    }
+
+    // Рекурсивный метод mergesort
+    public static int[] mergeSort(int[] arr) {
+        if (arr.length <= 1) return arr;         // базовый случай — массив длиной 0 или 1
+        int mid = arr.length / 2;                // находим середину
+        int[] left = new int[mid];               // создаём левую половину
+        int[] right = new int[arr.length - mid]; // создаём правую половину
+        System.arraycopy(arr, 0, left, 0, mid);  // копируем в left
+        System.arraycopy(arr, mid, right, 0, arr.length - mid); // копируем в right
+        left = mergeSort(left);                  // рекурсивно сортируем левую половину
+        right = mergeSort(right);                // рекурсивно сортируем правую половину
+        return merge(left, right);               // сливаем и возвращаем
+    }
+
+    // Вспомогательный вывод массива
+    private static void printArray(int[] arr) {
+        for (int v : arr) System.out.print(v + " ");
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        int[] array = {38, 27, 43, 3, 9, 82, 10}; // тестовый массив
+        System.out.print("Исходный массив: ");
+        printArray(array);                        // выводим исходный
+        int[] sorted = mergeSort(array);          // сортируем
+        System.out.print("Отсортированный массив: ");
+        printArray(sorted);                       // выводим результат
+    }
+}
