@@ -1,0 +1,22 @@
+public class InterpolationSearch {
+    // Интерполяционный поиск (рекурсивная версия)
+    public static int interpolationSearch(int[] arr, int lo, int hi, int x) {
+        if (lo <= hi && x >= arr[lo] && x <= arr[hi]) { // проверяем валидность границ и попадает ли x в диапазон
+            // вычисляем позицию с учётом распределения значений
+            int pos = lo + (int)(((long)(hi - lo) * (x - arr[lo])) / (arr[hi] - arr[lo]));
+            if (pos < lo || pos > hi) return -1; // защита на случай ненормального pos (страховка)
+            if (arr[pos] == x) return pos;       // нашли элемент
+            if (arr[pos] < x) return interpolationSearch(arr, pos + 1, hi, x); // идём вправо
+            if (arr[pos] > x) return interpolationSearch(arr, lo, pos - 1, x); // идём влево
+        }
+        return -1; // не найдено
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {10, 12, 13, 16, 18, 19, 20, 21, 22, 23, 24}; // отсортированный, примерно равномерно распределённый массив
+        int x = 18; // искомое значение
+        int result = interpolationSearch(arr, 0, arr.length - 1, x); // вызов функции
+        if (result != -1) System.out.println("Элемент найден на позиции: " + result);
+        else System.out.println("Элемент не найден");
+    }
+}
